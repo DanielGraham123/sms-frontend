@@ -6,14 +6,17 @@ import { store } from "./stores/store";
 import Router from "./router";
 import "./assets/css/app.css";
 import LoadingProvider from "./contexts/LoadingContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
-    <Provider store={store}>
-      <LoadingProvider>
-        <Router />
-      </LoadingProvider>
-    </Provider>
+    <AuthProvider>
+      <Provider store={store}>
+        <LoadingProvider>
+          <Router />
+        </LoadingProvider>
+      </Provider>
+    </AuthProvider>
     <ScrollToTop />
   </BrowserRouter>
 );

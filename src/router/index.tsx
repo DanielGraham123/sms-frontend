@@ -1,5 +1,6 @@
 import { useRoutes } from "react-router-dom";
 import SideMenu from "../layouts/SideMenu";
+import HomeLayout from "../layouts/HomeLayout";
 import Dashboard from "../pages/Dashboard";
 import Students from "../pages/Dashboard/Students";
 import Admission from "../pages/portal/Admission";
@@ -15,6 +16,7 @@ import AddCourse from "../pages/Dashboard/Courses/AddCourse";
 import Programmes from "../pages/Dashboard/Programmes";
 import ErrorPage from "../pages/ErrorPage";
 import Teachers from "../pages/Dashboard/Teachers";
+import Home from "../pages/Home";
 
 function Router() {
   const routes = [
@@ -68,6 +70,21 @@ function Router() {
       ],
     },
 
+    {
+      path: "/",
+      element: <HomeLayout />,
+      children: [
+        {
+          path: "",
+          element: <Home />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
+        },
+      ],
+    },
+
     // Authentication portal routes
     {
       path: "/parent",
@@ -88,10 +105,6 @@ function Router() {
     {
       path: "/confirm",
       element: <Confirm />
-    },
-    {
-      path: "/login",
-      element: <Login />,
     },
     {
       path: "*",

@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import UserLoginService from '../../../services/UserLoginService';
 import { useLoading } from '../../../contexts/LoadingContext';
 import Loader from "../../../components/Loader"
+import { useAuth } from '../../../contexts/AuthContext';
+import { User } from '../../../hooks/useUser';
 
 const index = () => {
     const [user, setUser] = React.useState({
@@ -19,6 +21,7 @@ const index = () => {
     const navigate = useNavigate();
 
     const { loading, setLoading } = useLoading();
+    const { login } = useAuth();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -31,13 +34,19 @@ const index = () => {
             return
         }
 
-        UserLoginService.login(user.usernameOrEmail, user.password).then((res: object) => {
+        UserLoginService.login(user.usernameOrEmail, user.password).then((res: any) => {
             setLoading(true);
 
             setTimeout(() => {
-                console.log(res);
+                console.log(res.user);
                 setLoading(false)
-                navigate('/portal/dashboard');
+                const loggedUser: User = {
+                    id: res.user.id,
+                    username: res.user.username,
+                    email: res.user.email,
+                    role: res.user.role,
+                }
+                login(loggedUser);
             }, 1500)
         }).catch(res => {
             console.log("error: ", res.response.data);

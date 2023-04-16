@@ -11,6 +11,7 @@ import clsx from "clsx";
 import { Transition } from "@headlessui/react";
 import { useLoading } from "../../contexts/LoadingContext";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 function Main(props: { layout?: "side-menu" | "simple-menu" | "top-menu" }) {
   const [searchDropdown, setSearchDropdown] = useState(false);
@@ -18,6 +19,7 @@ function Main(props: { layout?: "side-menu" | "simple-menu" | "top-menu" }) {
   const [strPath, setStrPath] = useState("");
 
   const { loading, setLoading } = useLoading()
+  const { logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -31,9 +33,8 @@ function Main(props: { layout?: "side-menu" | "simple-menu" | "top-menu" }) {
   const handleLogout = () => {
     console.log("logout");
     setLoading(true);
-
     setTimeout(() => {
-      navigate("/login")
+      logout();
       setLoading(false);
     }, 3000);
   }

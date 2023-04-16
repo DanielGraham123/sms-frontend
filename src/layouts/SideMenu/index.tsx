@@ -13,6 +13,8 @@ import MainColorSwitcher from "../../components/MainColorSwitcher";
 import SideMenuTooltip from "../../components/SideMenuTooltip";
 import { useLoading } from "../../contexts/LoadingContext";
 import Loader from "../../components/Loader";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 function Main() {
   const location = useLocation();
@@ -23,10 +25,16 @@ function Main() {
   const sideMenu = () => nestedMenu(sideMenuStore, location);
 
   const { loading, setLoading } = useLoading();
+  const { user } = useAuth();
 
   useEffect(() => {
     setFormattedMenu(sideMenu());
   }, [sideMenuStore, location.pathname]);
+
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     loading ? <Loader /> :
