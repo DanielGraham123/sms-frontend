@@ -1,6 +1,7 @@
 import axios from "axios";
+import { config } from "../constants";
 
-const USER_REGISTER_URL = 'https://sms-backend-production-717a.up.railway.app/api/auth/register';
+const USER_REGISTER_URL = config.API_URL + '/api/auth/register';
 
 
 class UserRegisterService {

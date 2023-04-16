@@ -3,18 +3,11 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import { User } from "../hooks/useUser";
 import { createContext, useContext, useMemo } from "react";
 
-// interface AuthContext {
-//     user: User | null;
-//     setUser: (user: User | null) => void;
-// }
-
-// const AuthContext = createContext(
-// {
-// user: null,
-// setUser: () => { },
-// }
-// );
-
+enum Role {
+    ADMIN = "ADMIN",
+    TEACHER = "TEACHER",
+    STUDENT = "STUDENT"
+}
 
 const AuthContext = createContext({
     user: null as any,

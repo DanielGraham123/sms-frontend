@@ -1,4 +1,6 @@
-const ADMISSION_API_URL = 'http://localhost:3000/admission';
+import { config } from "../constants";
+
+const ADMISSION_API_URL = config.API_URL + '/api/admission';
 
 class AdmissionService {
 

@@ -1,6 +1,7 @@
 import axios from "axios";
+import { config } from "../constants";
 
-const COURSE_API_URL = 'https://sms-backend-production-717a.up.railway.app/api/courses';
+const COURSE_API_URL = config.API_URL + '/api/courses';
 
 class CourseService {
     static async getAllCourses() {

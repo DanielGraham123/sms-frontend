@@ -1,6 +1,7 @@
 import axios from "axios";
+import { config } from "../constants";
 
-const PROGRAMME_API_URL = "https://sms-backend-production-717a.up.railway.app/api/programmes";
+const PROGRAMME_API_URL = config.API_URL + "/api/programmes";
 
 class ProgrammeService {
 
