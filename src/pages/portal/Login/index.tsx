@@ -1,15 +1,15 @@
-import React from 'react'
-import { FormCheck, FormInput } from '../../../base-components/Form'
-import illustrationUrl from "../../../assets/images/welcome-illustration.svg"
-import logoUrl from "../../../assets/images/logo.svg";
-import Button from '../../../base-components/Button'
 import clsx from 'clsx';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import UserLoginService from '../../../services/UserLoginService';
-import { useLoading } from '../../../contexts/LoadingContext';
-import Loader from "../../../components/Loader"
+import logoUrl from "../../../assets/images/logo.svg";
+import illustrationUrl from "../../../assets/images/welcome-illustration.svg";
+import Button from '../../../base-components/Button';
+import { FormCheck, FormInput } from '../../../base-components/Form';
+import Loader from "../../../components/Loader";
 import { useAuth } from '../../../contexts/AuthContext';
+import { useLoading } from '../../../contexts/LoadingContext';
 import { User } from '../../../hooks/useUser';
+import UserLoginService from '../../../services/UserLoginService';
 
 const index = () => {
     const [user, setUser] = React.useState({

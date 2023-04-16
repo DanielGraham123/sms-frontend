@@ -286,9 +286,9 @@ function Main(props: { layout?: "side-menu" | "simple-menu" | "top-menu" }) {
               <Menu.Item className="hover:bg-white/5">
                 <Lucide icon="User" className="w-4 h-4 mr-2" /> Profile
               </Menu.Item>
-              <Menu.Item className="hover:bg-white/5">
+              {/* <Menu.Item className="hover:bg-white/5">
                 <Lucide icon="Edit" className="w-4 h-4 mr-2" /> Add Account
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item className="hover:bg-white/5">
                 <Lucide icon="Lock" className="w-4 h-4 mr-2" /> Reset Password
               </Menu.Item>

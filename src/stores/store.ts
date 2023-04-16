@@ -4,6 +4,8 @@ import colorSchemeReducer from "./colorSchemeSlice";
 import sideMenuReducer from "./sideMenuSlice";
 import simpleMenuReducer from "./simpleMenuSlice";
 import topMenuReducer from "./topMenuSlice";
+import parentSideMenu from "./parentSideMenuSlice";
+import studentSideMenu from "./studentSideMenuSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ export const store = configureStore({
     sideMenu: sideMenuReducer,
     simpleMenu: simpleMenuReducer,
     topMenu: topMenuReducer,
+    parentSideMenu: parentSideMenu,
+    studentSideMenu: studentSideMenu,
   },
 });
 

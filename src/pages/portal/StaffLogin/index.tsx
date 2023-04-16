@@ -1,11 +1,12 @@
 import clsx from 'clsx'
 import React, { useState } from 'react'
-import { FormCheck, FormInput, FormSelect } from '../../../base-components/Form'
 import Button from '../../../base-components/Button'
-import UserLoginService from '../../../services/UserLoginService'
-import { useNavigate } from 'react-router-dom';
-import { useLoading } from '../../../contexts/LoadingContext'
+import { FormCheck, FormInput, FormSelect } from '../../../base-components/Form'
 import Loader from "../../../components/Loader"
+import { useAuth } from "../../../contexts/AuthContext"
+import { useLoading } from '../../../contexts/LoadingContext'
+import { User } from '../../../hooks/useUser'
+import UserLoginService from '../../../services/UserLoginService'
 
 const index = () => {
 
@@ -19,9 +20,8 @@ const index = () => {
 
   const [error, setError] = useState("");
 
-  const navigate = useNavigate();
-
   const { loading, setLoading } = useLoading()
+  const { login } = useAuth()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStaff({ ...staff, [e.target.name]: e.target.value })
@@ -37,16 +37,23 @@ const index = () => {
     e.preventDefault()
 
     if (!staff.usernameOrEmail || !staff.password || !staff.role || role === "") {
+      setError("Some fields are empty!");
       return;
     }
 
-    UserLoginService.staffLogin(staff).then((res: object) => {
+    UserLoginService.staffLogin(staff).then((res: any) => {
       setLoading(true)
 
       setTimeout(() => {
-        console.log(res)
+        console.log("staff login", res)
         setLoading(false)
-        navigate('/portal/dashboard');
+        const loggedInUser: User = {
+          id: res.user.id,
+          username: res.user.username,
+          email: res.user.email,
+          role: res.user.role
+        }
+        login(loggedInUser);
       }, 1500)
     }).catch(res => {
       console.log("error: ", res)
@@ -62,8 +69,6 @@ const index = () => {
       }
 
     });
-
-
 
   }
 

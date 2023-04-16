@@ -1,14 +1,8 @@
 import clsx from "clsx";
 import Lucide from "../../base-components/Lucide";
 import Tippy from "../../base-components/Tippy";
-import { useEffect } from "react";
-
 
 function Main() {
-
-  useEffect(() => {
-    console.log("env:", import.meta.env.MODE);
-  }, []);
 
   return (
     <div className="grid grid-cols-12 gap-6">

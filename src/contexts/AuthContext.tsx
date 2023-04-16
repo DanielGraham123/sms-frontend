@@ -2,12 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { User } from "../hooks/useUser";
 import { createContext, useContext, useMemo } from "react";
-
-enum Role {
-    ADMIN = "ADMIN",
-    TEACHER = "TEACHER",
-    STUDENT = "STUDENT"
-}
+import { Role } from "../hooks/useRole";
 
 const AuthContext = createContext({
     user: null as any,
@@ -23,7 +18,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const login = async (user: User) => {
         setUser(user);
         console.log("user: ", user);
-        navigate("/portal/dashboard");
+
+        if (user.role[0] === Role.ADMIN) {
+            navigate("/portal/dashboard");
+        } else if (user.role[0] === Role.TEACHER) {
+            navigate("/teacher/dashboard");
+        } else if (user.role[0] === Role.PARENT) {
+            navigate("/parent/dashboard");
+        } else if (user.role[0] === Role.STUDENT) {
+            navigate("/student/dashboard");
+        } else {
+            navigate("/")
+        }
+
     };
 
     // logout a logged in user
