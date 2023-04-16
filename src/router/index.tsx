@@ -22,6 +22,7 @@ import Home from "../pages/Home";
 import TeacherDashboard from "../pages/TeacherDashboard";
 import ParentDashboard from "../pages/ParentDashboard";
 import StudentDashboard from "../pages/StudentDashboard"
+import AdminProfile from "../pages/Dashboard/Profile"
 
 function Router() {
   const routes = [
@@ -30,6 +31,10 @@ function Router() {
       path: "/portal/",
       element: <SideMenu />,
       children: [
+        {
+          path: "profile",
+          element: <AdminProfile />,
+        },
         {
           path: "dashboard",
           element: <Dashboard />,

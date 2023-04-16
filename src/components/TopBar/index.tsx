@@ -283,7 +283,7 @@ function Main(props: { layout?: "side-menu" | "simple-menu" | "top-menu" }) {
                 </div>
               </Menu.Header>
               <Menu.Divider className="bg-white/[0.08]" />
-              <Menu.Item className="hover:bg-white/5">
+              <Menu.Item className="hover:bg-white/5" onClick={() => navigate("/portal/profile")}>
                 <Lucide icon="User" className="w-4 h-4 mr-2" /> Profile
               </Menu.Item>
               {/* <Menu.Item className="hover:bg-white/5">
