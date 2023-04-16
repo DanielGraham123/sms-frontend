@@ -13,7 +13,6 @@ const index = () => {
 
     return (
         <div className='bg-primary min-h-screen'>
-            {/* <h3>Home Layout</h3> */}
             <Outlet />
         </div>
     )
