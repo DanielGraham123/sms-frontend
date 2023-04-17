@@ -39,7 +39,7 @@ function Main() {
   return (
     loading ? <Loader /> :
       <div className="py-5 md:py-0">
-        <DarkModeSwitcher />
+        {/* <DarkModeSwitcher /> */}
         <MainColorSwitcher />
         <MobileMenu />
         <TopBar layout="side-menu" />

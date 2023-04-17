@@ -84,9 +84,8 @@ const index = () => {
         <div className="flex items-center justify-center mt-12">
           <h2 className="text-3xl font-medium intro-y text-white">Scolar Admin - Sign In</h2>
         </div>
-        {/* BEGIN: Wizard Layout */}
         <div className='container relative z-10 sm:px-10 pb-8 justify-center flex'>
-          <div className="py-5 mt-5 intro-y box sm:py-10 w-[40%] ">
+          <div className="py-5 mt-5 intro-y px-5 mx-auto my-auto bg-white rounded-md shadow-md box sm:py-10 w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
 
             {/* BEGIN: Login Form */}
             <div className="px-12">
@@ -147,16 +146,10 @@ const index = () => {
               <div className="mt-5 text-center intro-x xl:mt-8 xl:text-right">
                 <Button
                   variant="primary"
-                  className="w-full px-4 py-3 align-top xl:w-32 xl:mr-3"
+                  className="w-full px-4 py-3 align-top"
                   onClick={(e: React.MouseEvent) => staffLogin(e)}
                 >
                   Login
-                </Button>
-                <Button
-                  variant="outline-secondary"
-                  className="w-full px-4 py-3 mt-3 align-top xl:w-32 xl:mt-0"
-                >
-                  Register
                 </Button>
               </div>
             </div>

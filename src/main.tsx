@@ -7,14 +7,17 @@ import Router from "./router";
 import "./assets/css/app.css";
 import LoadingProvider from "./contexts/LoadingContext";
 import { AuthProvider } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
     <AuthProvider>
       <Provider store={store}>
-        <LoadingProvider>
-          <Router />
-        </LoadingProvider>
+        <ThemeProvider>
+          <LoadingProvider>
+            <Router />
+          </LoadingProvider>
+        </ThemeProvider>
       </Provider>
     </AuthProvider>
     <ScrollToTop />

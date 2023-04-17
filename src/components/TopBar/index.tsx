@@ -19,7 +19,7 @@ function Main(props: { layout?: "side-menu" | "simple-menu" | "top-menu" }) {
   const [strPath, setStrPath] = useState("");
 
   const { loading, setLoading } = useLoading()
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,7 +34,7 @@ function Main(props: { layout?: "side-menu" | "simple-menu" | "top-menu" }) {
     console.log("logout");
     setLoading(true);
     setTimeout(() => {
-      logout();
+      logout(user);
       setLoading(false);
     }, 3000);
   }

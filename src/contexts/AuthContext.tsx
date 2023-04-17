@@ -7,7 +7,7 @@ import { Role } from "../hooks/useRole";
 const AuthContext = createContext({
     user: null as any,
     login: (user: User) => { },
-    logout: () => { }
+    logout: (user: User) => { }
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -34,9 +34,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     // logout a logged in user
-    const logout = () => {
-        setUser(null);
-        navigate("/", { replace: true });
+    const logout = (user: User) => {
+        if (user?.role[0] === Role.ADMIN) {
+            navigate("/staff/login", { replace: true });
+            setUser(null);
+        } else {
+            setUser(null);
+            navigate("/", { replace: true });
+        }
     }
 
     const value = useMemo(() => ({
