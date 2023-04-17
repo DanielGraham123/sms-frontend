@@ -112,7 +112,7 @@ function Main() {
                         {
                             profileCard === 'Profile' && <Info photo={fakerData[0].photos[0]} user={user} /> ||
                             profileCard === 'Account' && <Account user={user} /> ||
-                            profileCard === 'Password' && <Password /> ||
+                            profileCard === 'Password' && <Password user={user} /> ||
                             profileCard === 'Settings' && <Settings />
                         }
                     </div>

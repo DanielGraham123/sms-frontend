@@ -31,6 +31,7 @@ const index = () => {
         e.preventDefault();
 
         if (!user.usernameOrEmail || !user.password) {
+            setError("Please fill in all fields");
             return
         }
 
