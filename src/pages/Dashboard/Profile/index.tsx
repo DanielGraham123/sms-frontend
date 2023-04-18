@@ -67,17 +67,17 @@ function Main() {
 
                         </div>
                         <div className="p-5 border-t border-slate-200/60 dark:border-darkmode-400">
-                            <a className={`flex items-center cursor-pointer ${profileCard === 'Profile' && 'text-primary font-medium'}`} onClick={() => setProfileCard(profileCards[0])}>
+                            <a className={`flex items-center cursor-pointer ${profileCard === 'Profile' && 'text-primary font-medium dark:text-indigo-300'}`} onClick={() => setProfileCard(profileCards[0])}>
                                 <Lucide icon="Activity" className="w-4 h-4 mr-2" /> Personal
                                 Informations
                             </a>
-                            <a className={`flex items-center cursor-pointer mt-5 ${profileCard === 'Account' && 'text-primary font-medium'}`} onClick={() => setProfileCard(profileCards[1])}>
+                            <a className={`flex items-center cursor-pointer mt-5 ${profileCard === 'Account' && 'text-primary font-medium dark:text-indigo-300'}`} onClick={() => setProfileCard(profileCards[1])}>
                                 <Lucide icon="Box" className="w-4 h-4 mr-2" /> Account Settings
                             </a>
-                            <a className={`flex items-center cursor-pointer mt-5 ${profileCard === 'Password' && 'text-primary font-medium'}`} onClick={() => setProfileCard(profileCards[2])}>
+                            <a className={`flex items-center cursor-pointer mt-5 ${profileCard === 'Password' && 'text-primary font-medium dark:text-indigo-300'}`} onClick={() => setProfileCard(profileCards[2])}>
                                 <Lucide icon="Lock" className="w-4 h-4 mr-2" /> Change Password
                             </a>
-                            <a className={`flex items-center cursor-pointer mt-5 ${profileCard === 'Settings' && 'text-primary font-medium'}`} onClick={() => setProfileCard(profileCards[3])}>
+                            <a className={`flex items-center cursor-pointer mt-5 ${profileCard === 'Settings' && 'text-primary font-medium dark:text-indigo-300'}`} onClick={() => setProfileCard(profileCards[3])}>
                                 <Lucide icon="Settings" className="w-4 h-4 mr-2" /> User
                                 Settings
                             </a>

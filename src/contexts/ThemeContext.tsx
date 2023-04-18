@@ -1,15 +1,17 @@
-import { createContext, useState, useContext } from "react"
+import { createContext, useState, useContext, useEffect } from "react"
 import { selectDarkMode, setDarkMode } from "../stores/darkModeSlice";
 import { useAppSelector, useAppDispatch } from "../stores/hooks";
 
 type ThemeContextType = {
     darkTheme: boolean
-    setTheme: () => void
+    setTheme: (theme: boolean) => void
+    switchMode: () => void
 }
 
 export const ThemeContext = createContext<ThemeContextType>({
     darkTheme: false,
-    setTheme: () => { },
+    setTheme: (theme: boolean) => { },
+    switchMode: () => { },
 })
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
@@ -28,12 +30,13 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         dispatch(setDarkMode(!darkMode));
         localStorage.setItem("darkMode", (!darkMode).toString());
         setDarkModeClass();
+        setTheme(!darkMode);
     };
 
     setDarkModeClass();
 
     return (
-        <ThemeContext.Provider value={{ darkTheme, setTheme: switchMode }}>
+        <ThemeContext.Provider value={{ darkTheme, setTheme, switchMode }}>
             {children}
         </ThemeContext.Provider>
     )

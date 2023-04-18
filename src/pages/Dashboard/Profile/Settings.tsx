@@ -3,7 +3,11 @@ import { useTheme } from '../../../contexts/ThemeContext';
 
 const Settings = () => {
 
-    const { darkTheme, setTheme } = useTheme();
+    const { darkTheme, switchMode } = useTheme();
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        switchMode();
+    }
 
     return (
         <div className="col-span-12 intro-y box 2xl:col-span-6">
@@ -19,7 +23,7 @@ const Settings = () => {
                         <div className="text-slate-500">This will change your theme to a light/dark theme</div>
                     </div>
                     <FormSwitch className="ml-auto" >
-                        <FormSwitch.Input type="checkbox" onClick={() => setTheme()} checked={!darkTheme} />
+                        <FormSwitch.Input type="checkbox" onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)} checked={darkTheme} />
                     </FormSwitch>
                 </div>
                 <div className="flex items-center mt-5">

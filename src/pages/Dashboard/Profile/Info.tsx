@@ -23,7 +23,7 @@ const Info = ({ user, photo }: { user: any; photo: any; }): JSX.Element => {
                             {user?.username}
                         </div>
                         <div className="text-slate-500">IT Staff Administrator</div>
-                        <div className="text-blue-800">{user?.email}</div>
+                        <div className="text-blue-800 dark:text-indigo-300">{user?.email}</div>
                     </div>
                 </div>
             </div>
