@@ -1,6 +1,6 @@
 import { forwardRef, useState, Fragment } from "react";
 import { twMerge } from "tailwind-merge";
-import { Transition } from "@headlessui/react";
+import { Transition } from "headlessui-latest";
 
 type Variant =
   | "primary"
@@ -29,8 +29,8 @@ type AlertProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
   C,
   {
     children:
-      | React.ReactNode
-      | ((props: { dismiss: () => void }) => JSX.Element);
+    | React.ReactNode
+    | ((props: { dismiss: () => void }) => JSX.Element);
     dismissible?: boolean;
     variant?: Variant;
     onShow?: () => {};
@@ -186,10 +186,10 @@ const Alert: AlertComponent = forwardRef(
         >
           {typeof props.children === "function"
             ? props.children({
-                dismiss: () => {
-                  setShow(false);
-                },
-              })
+              dismiss: () => {
+                setShow(false);
+              },
+            })
             : props.children}
         </Component>
       </Transition>

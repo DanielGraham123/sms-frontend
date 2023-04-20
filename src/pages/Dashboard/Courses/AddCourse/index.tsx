@@ -26,13 +26,13 @@ const index = () => {
     const [course, setCourse] = useState({
         name: "",
         description: "<p>Description of the course.</p>",
-        programme_id: 1,
-        grades: [1]
+        programme_id: 0,
+        grades: [0]
     })
     const [error, setError] = useState("")
     const [editorData, setEditorData] = useState("<p>Description of the course.</p>");
     const [selectedProgramme, setSelectedProgramme] = useState("1");
-    const [select, setSelect] = useState<[string]>(["1"]);
+    const [selectedClasses, setSelectedClasses] = useState<string[]>([]);
     const [grades, setGrades] = useState([]);
     const [programmes, setProgrammes] = useState([]);
 
@@ -45,18 +45,20 @@ const index = () => {
     const saveCourse = (e: React.MouseEvent) => {
         e.preventDefault()
 
-        setCourse({ ...course, description: editorData.toString(), programme_id: parseInt(selectedProgramme), grades: select.map(Number) })
+        // setCourse({ ...course, description: editorData.toString(), programme_id: parseInt(selectedProgramme), grades: selectedClasses.map(Number) })
+        let course_ = { name: course.name, description: editorData.toString(), programme_id: parseInt(selectedProgramme), grades: selectedClasses.map(Number) }
+        console.log("course object: ", course_, selectedClasses)
 
-        if (!course.name || !course.description || !course.programme_id || course.grades[0] === 0) {
+        if (!course_.name || !course_.description || !course_.programme_id || course_.grades[0] === 0) {
             setError("Some fields are empty.")
-            console.log("course fields empty: ", course)
+            console.log("course fields empty: ", course, selectedProgramme)
             window.scrollTo(0, 0);
             return;
         }
 
         // setLoading(true)
 
-        CourseService.createCourse(course).then((response) => {
+        CourseService.createCourse(course_).then((response) => {
             setLoading(true)
             setTimeout(() => {
                 basicNonStickyNotificationToggle();
@@ -98,11 +100,20 @@ const index = () => {
             ProgrammeService.getAllProgrammes().then((response) => {
                 console.log("Programmes: ", response);
                 setProgrammes(response);
+                setSelectedProgramme(response[0].id.toString())
             })
         }
         fetchProgrammes()
 
     }, [])
+
+    useEffect(() => {
+        console.log("selectedClasses: ", selectedClasses)
+    }, [selectedClasses])
+
+    useEffect(() => {
+        console.log("selectedProgramme: ", selectedProgramme)
+    }, [selectedProgramme])
 
 
     return (
@@ -157,12 +168,15 @@ const index = () => {
                             <div>
                                 <label>Class</label>
                                 <div className="mt-2">
-                                    <TomSelect value={select} onChange={() => setSelect} multiple options={{
-                                        placeholder: "Select your favorite actors",
+                                    <TomSelect value={selectedClasses} onChange={setSelectedClasses} multiple options={{
+                                        placeholder: "Select Classes",
                                     }} className="w-full">
-                                        {grades?.map((grade, index) => (
-                                            <option key={grade['name'] + "#" + index} value={grade['id']}>{grade['name']}</option>
-                                        ))}
+                                        {grades.length > 0 ?
+                                            grades?.map((grade, index) => (
+                                                <option key={grade['name'] + "#" + index} value={grade['id']}>{grade['name']}</option>
+                                            )) : (
+                                                <option value="0">No Classes</option>
+                                            )}
                                     </TomSelect>
                                 </div>
                                 <div className="mt-3">

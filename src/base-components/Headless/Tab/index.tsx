@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import { Tab as HeadlessTab, Transition } from "@headlessui/react";
+import { Tab as HeadlessTab, Transition } from "headlessui-dev";
 import { Fragment, createContext, useContext } from "react";
 
 type Variant = "tabs" | "pills" | "boxed-tabs" | "link-tabs";

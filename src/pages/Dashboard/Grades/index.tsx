@@ -277,7 +277,7 @@ const index = () => {
                                         checked={isCheckAll}
                                     />
                                     <Menu>
-                                        <Menu.Button as={'div'} className="flex items-center">
+                                        <Menu.Button as={'div'} className="flex items-center ml-3">
                                             <span>Bulk Actions</span>
                                             <Lucide icon="ChevronDown" className="w-4 h-4 ml-2" />
                                         </Menu.Button>

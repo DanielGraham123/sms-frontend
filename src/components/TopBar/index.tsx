@@ -8,7 +8,7 @@ import { Menu, Popover } from "../../base-components/Headless";
 import fakerData from "../../utils/faker";
 import _, { isLength, isUndefined } from "lodash";
 import clsx from "clsx";
-import { Transition } from "@headlessui/react";
+import { Transition } from "headlessui-latest";
 import { useLoading } from "../../contexts/LoadingContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
@@ -47,12 +47,19 @@ function Main(props: { layout?: "side-menu" | "simple-menu" | "top-menu" }) {
 
     if (path) {
       console.log("location.pathname ", location.pathname)
-      setStrPath(path.split("/").pop()!);
+      let pathArr = path.split("/")
+      if (pathArr.length === 5) {
+        setStrPath(pathArr[pathArr.length - 2])
+      } else {
+        setStrPath(pathArr.pop()!)
+      }
+
+      console.log("pathArr: ", pathArr)
     }
 
   }, [path, location.pathname]);
 
-  console.log("path ", location.pathname?.split("/").length === 4);
+  console.log("path ", location.pathname?.split("/"));
 
   return (
     <>
@@ -108,13 +115,24 @@ function Main(props: { layout?: "side-menu" | "simple-menu" | "top-menu" }) {
                 {!isUndefined(path) && path?.split("/")[2]?.charAt(0).toUpperCase() + path?.split("/")[2]?.slice(1)}
               </Breadcrumb.Link>
 
-            ) : (!location?.pathname.includes("dashboard") ?
-              <Breadcrumb.Link to={path ? path : '/'} active={true}>
-                {strPath?.charAt(0).toUpperCase() + strPath?.slice(1)}
-              </Breadcrumb.Link> : <div></div>
-            )}
+            ) : (location.pathname?.split("/").length === 5) ? (
+              <Breadcrumb.Link to={!isUndefined(path) ? path.split("/").slice(2, 3).join().replace(",", "/") : ""}>
+                {!isUndefined(path) && path?.split("/")[2]?.charAt(0).toUpperCase() + path?.split("/")[2]?.slice(1)}
+              </Breadcrumb.Link>
+
+            ) :
+
+              (!location?.pathname.includes("dashboard") ?
+                <Breadcrumb.Link to={path ? path : '/'} active={true}>
+                  {strPath?.charAt(0).toUpperCase() + strPath?.slice(1)}
+                </Breadcrumb.Link> : <div></div>
+              )}
 
             {!isUndefined(strPath) && location?.pathname?.split("/").length === 4 ? (
+              <Breadcrumb.Link to={path ? path : '/'} active={true}>
+                {strPath?.charAt(0).toUpperCase() + strPath?.slice(1)}
+              </Breadcrumb.Link>
+            ) : !isUndefined(strPath) && location?.pathname?.split("/").length === 5 ? (
               <Breadcrumb.Link to={path ? path : '/'} active={true}>
                 {strPath?.charAt(0).toUpperCase() + strPath?.slice(1)}
               </Breadcrumb.Link>

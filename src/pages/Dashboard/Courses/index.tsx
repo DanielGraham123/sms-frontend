@@ -1,15 +1,54 @@
-import { Menu } from "../../../base-components/Headless";
+import { Dialog, Menu } from "../../../base-components/Headless";
 import Button from "../../../base-components/Button";
 import Table from "../../../base-components/Table";
 import Lucide from "../../../base-components/Lucide";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import CourseService from "../../../services/CourseService";
 import { useNavigate } from "react-router-dom";
+import Notification, { NotificationElement } from '../../../base-components/Notification';
 
 const index = () => {
+    // Basic non sticky notification
+    const basicNonStickyNotification = useRef<NotificationElement>();
+    const basicNonStickyNotificationToggle = () => {
+        // Show notification
+        basicNonStickyNotification.current?.showToast();
+    };
+
     const [courses, setCourses] = useState<any>([])
+    const [deleteModalPreview, setDeleteModalPreview] = useState(false);
+
+    const deleteButtonRef = useRef(null);
+
 
     const navigate = useNavigate();
+
+    const fetchCourses = async () => {
+        CourseService.getAllCourses().then((response) => {
+            console.log("Courses: ", response);
+            setCourses(response)
+        })
+    }
+
+    const updateCourse = async (id: any) => {
+        navigate(`/portal/courses/edit/${id}`)
+    }
+
+    const deleteCourse = async (id: any) => {
+        CourseService.deleteCourse(id).then((response) => {
+            basicNonStickyNotificationToggle();
+            console.log("Programme deleted: ", response);
+            fetchCourses()
+        }).catch((res) => {
+            console.log("delete error: ", res);
+
+            if (res.response.status === 401 || res.response.status === 400) {
+                // setError(res.response.data)
+            } else {
+                // setError(res.response.data.message)
+            }
+        })
+    }
 
     // Print
     const onPrint = () => {
@@ -49,12 +88,7 @@ const index = () => {
     };
 
     useEffect(() => {
-        const fetchCourses = async () => {
-            CourseService.getAllCourses().then((response) => {
-                console.log("Courses: ", response);
-                setCourses(response)
-            })
-        }
+
         fetchCourses()
     }, [])
 
@@ -144,29 +178,95 @@ const index = () => {
                             </Table.Tr>
                         </Table.Thead>
                         <Table.Tbody>
-                            {courses?.map((course: any, index: number) => (
-                                <Table.Tr key={course?.name + "#" + index}>
-                                    <Table.Td>{index + 1}</Table.Td>
-                                    <Table.Td>{course?.name}</Table.Td>
-                                    <Table.Td> {course?.description}  </Table.Td>
-                                    <Table.Td>{course?.programme.name}</Table.Td>
-                                    <Table.Td>
-                                        <div className="flex items-center">
-                                            <button className="flex items-center m">
-                                                <Lucide icon="FileEdit" className="w-4 h-4 mr-2" /> Edit
-                                            </button>
-                                            <button className="flex items-center ml-3 text-danger">
-                                                <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
-                                            </button>
-                                        </div>
-                                    </Table.Td>
+                            {courses?.length > 0 ?
+                                courses?.map((course: any, index: number) => (
+                                    <Table.Tr key={course?.name + "#" + index}>
+                                        <Table.Td>{index + 1}</Table.Td>
+                                        <Table.Td>{course?.name}</Table.Td>
+                                        <Table.Td> {course?.description}  </Table.Td>
+                                        <Table.Td>{course?.programme.name}</Table.Td>
+                                        <Table.Td>
+                                            <div className="flex items-center">
+                                                <button className="flex items-center m" onClick={() => updateCourse(course?.id)}>
+                                                    <Lucide icon="FileEdit" className="w-4 h-4 mr-2" /> Edit
+                                                </button>
+                                                <button className="flex items-center ml-3 text-danger" onClick={(e: React.MouseEvent) => {
+                                                    e.preventDefault();
+                                                    setDeleteModalPreview(true);
+                                                }}>
+                                                    <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
+                                                </button>
+                                            </div>
+                                        </Table.Td>
+                                    </Table.Tr>
+                                )) : <Table.Tr>
+                                    <Table.Td colSpan={5} className="text-center">No Courses Found</Table.Td>
                                 </Table.Tr>
-                            ))}
+                            }
                         </Table.Tbody>
                     </Table>
                 </div>
             </div>
             {/* END: Courses Table Layout */}
+
+            {/* BEGIN: Basic Non Sticky Notification Content */}
+            <Notification getRef={(el) => {
+                basicNonStickyNotification.current = el;
+            }}
+                options={{
+                    duration: 3000,
+                }}
+                className="flex flex-col sm:flex-row"
+            >
+                <div className="font-medium">
+                    Course Deleted!
+                </div>
+            </Notification>
+            {/* END: Basic Non Sticky Notification Content */}
+
+            {/* BEGIN: Modal Content */}
+            <Dialog
+                open={deleteModalPreview}
+                onClose={() => {
+                    setDeleteModalPreview(false);
+                }}
+                initialFocus={deleteButtonRef}
+            >
+                <Dialog.Panel>
+                    <div className="p-5 text-center">
+                        <Lucide
+                            icon="XCircle"
+                            className="w-16 h-16 mx-auto mt-3 text-danger"
+                        />
+                        <div className="mt-5 text-3xl">Are you sure?</div>
+                        <div className="mt-2 text-slate-500">
+                            Do you really want to delete these records? <br />
+                            This process cannot be undone.
+                        </div>
+                    </div>
+                    <div className="px-5 pb-8 text-center">
+                        <Button
+                            type="button"
+                            variant="outline-secondary"
+                            onClick={() => {
+                                setDeleteModalPreview(false);
+                            }}
+                            className="w-24 mr-1"
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            type="button"
+                            variant="danger"
+                            className="w-24"
+                            ref={deleteButtonRef}
+                        >
+                            Delete
+                        </Button>
+                    </div>
+                </Dialog.Panel>
+            </Dialog>
+            {/* END: Modal Content */}
         </div>
     )
 }

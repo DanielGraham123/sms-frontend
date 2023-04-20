@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import { Dialog as HeadlessDialog, Transition } from "@headlessui/react";
+import { Dialog as HeadlessDialog, Transition } from "headlessui-latest";
 import { Fragment, createContext, useContext, useRef, useState } from "react";
 
 type Size = "sm" | "md" | "lg" | "xl";

@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import { Menu as HeadlessMenu, Transition } from "@headlessui/react";
+import { Menu as HeadlessMenu, Transition } from "headlessui-dev";
 import { Fragment } from "react";
 import clsx from "clsx";
 
@@ -42,18 +42,18 @@ Menu.Items = ({
   ...props
 }: ExtractProps<typeof HeadlessMenu.Items> & {
   placement?:
-    | "top-start"
-    | "top"
-    | "top-end"
-    | "right-start"
-    | "right"
-    | "right-end"
-    | "bottom-end"
-    | "bottom"
-    | "bottom-start"
-    | "left-start"
-    | "left"
-    | "left-end";
+  | "top-start"
+  | "top"
+  | "top-end"
+  | "right-start"
+  | "right"
+  | "right-end"
+  | "bottom-end"
+  | "bottom"
+  | "bottom-start"
+  | "left-start"
+  | "left"
+  | "left-end";
 }) => {
   return (
     <Transition

@@ -15,6 +15,7 @@ import Confirm from "../pages/portal/Register/confirm"
 import Grades from "../pages/Dashboard/Grades";
 import Courses from "../pages/Dashboard/Courses";
 import AddCourse from "../pages/Dashboard/Courses/AddCourse";
+import EditCourse from "../pages/Dashboard/Courses/EditCourse";
 import Programmes from "../pages/Dashboard/Programmes";
 import ErrorPage from "../pages/ErrorPage";
 import Teachers from "../pages/Dashboard/Teachers";
@@ -59,6 +60,11 @@ function Router() {
           path: "courses/add",
           name: "Add Course",
           element: <AddCourse />,
+        },
+        {
+          path: "courses/edit/:id",
+          name: "Edit Course",
+          element: <EditCourse />,
         },
         {
           path: "programmes",
