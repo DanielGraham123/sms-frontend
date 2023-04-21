@@ -5,7 +5,7 @@ import StudentLayout from "../layouts/StudentLayout";
 import HomeLayout from "../layouts/HomeLayout";
 import Dashboard from "../pages/Dashboard";
 import Students from "../pages/Dashboard/Students";
-import Admission from "../pages/portal/Admission";
+import Admission from "../pages/Dashboard/Admission";
 import Parent from "../pages/portal/Parent";
 import StaffLogin from "../pages/portal/StaffLogin";
 import Student from "../pages/portal/Student";
@@ -24,6 +24,7 @@ import TeacherDashboard from "../pages/TeacherDashboard";
 import ParentDashboard from "../pages/ParentDashboard";
 import StudentDashboard from "../pages/StudentDashboard"
 import AdminProfile from "../pages/Dashboard/Profile"
+import AddAdmission from "../pages/Dashboard/Admission/Add"
 
 function Router() {
   const routes = [
@@ -45,8 +46,12 @@ function Router() {
           element: <Students />,
         },
         {
-          path: "admission",
+          path: "admissions",
           element: <Admission />,
+        },
+        {
+          path: "admissions/add",
+          element: <AddAdmission />,
         },
         {
           path: "classes",

@@ -42,6 +42,11 @@ const initialState: SideMenuState = {
       title: "Courses",
     },
     {
+      icon: "GraduationCap",
+      pathname: "/portal/admissions",
+      title: "Admissions"
+    },
+    {
       icon: "Users",
       title: "Staff",
       subMenu: [
