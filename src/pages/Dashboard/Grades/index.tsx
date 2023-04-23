@@ -5,17 +5,7 @@ import Lucide from "../../../base-components/Lucide";
 import { FormCheck, FormInput, FormSelect } from "../../../base-components/Form";
 import React, { useEffect, useState } from "react";
 import GradeService from "../../../services/GradeService";
-
-enum Level {
-    ELEMENTARY = "Elementary School",
-    HIGH_SCHOOL = "Secondary School",
-}
-
-type GradeU = {
-    id: number;
-    name: string;
-    level: string;
-};
+import { GradeU, Level } from "../../../types/enums";
 
 const index = () => {
     const [grades, setGrades] = useState<any>([])

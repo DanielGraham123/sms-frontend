@@ -15,6 +15,7 @@ import { useLoading } from "../../contexts/LoadingContext";
 import Loader from "../../components/Loader";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import Loader2 from "../../components/Loader2";
 
 function Main() {
   const location = useLocation();
@@ -24,7 +25,7 @@ function Main() {
   const sideMenuStore = useAppSelector(selectSideMenu);
   const sideMenu = () => nestedMenu(sideMenuStore, location);
 
-  const { loading, setLoading } = useLoading();
+  const { loading, setLoading, loading2 } = useLoading();
   const { user } = useAuth();
 
   useEffect(() => {
@@ -163,7 +164,10 @@ function Main() {
               "before:content-[''] before:w-full before:h-px before:block",
             ])}
           >
-            <Outlet />
+            {
+              loading2 ? <Loader2 /> :
+                <Outlet />
+            }
           </div>
           {/* END: Content */}
         </div>

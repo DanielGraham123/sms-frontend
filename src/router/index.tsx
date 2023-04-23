@@ -25,6 +25,7 @@ import ParentDashboard from "../pages/ParentDashboard";
 import StudentDashboard from "../pages/StudentDashboard"
 import AdminProfile from "../pages/Dashboard/Profile"
 import AddAdmission from "../pages/Dashboard/Admission/Add"
+import AddTeacher from "../pages/Dashboard/Teachers/AddTeacher"
 
 function Router() {
   const routes = [
@@ -76,17 +77,21 @@ function Router() {
           element: <Programmes />,
         },
         {
-          path: "staff",
+          path: "teachers",
           children: [
             {
-              path: "teachers",
+              path: "",
               element: <Teachers />,
             },
             {
-              path: "non-teaching-staff",
-              element: <Teachers />,
-            }
-          ]
+              path: "add",
+              element: <AddTeacher />,
+            },
+          ],
+        },
+        {
+          path: "non-teaching-staff",
+          element: <Teachers />,
         }
       ],
     },

@@ -26,3 +26,22 @@ export type AdmissionForm = {
     student: Student,
     admissionYear: string;
 }
+
+export type Programme = {
+    id: number;
+    name: string;
+    level: string;
+}
+
+export type Teacher = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    address: string;
+    course: {
+        id: number;
+        name: string;
+    },
+    gender: string;
+}

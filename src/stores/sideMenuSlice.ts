@@ -52,13 +52,13 @@ const initialState: SideMenuState = {
       subMenu: [
         {
           icon: "Activity",
-          pathname: "/portal/staff/teachers",
+          pathname: "/portal/teachers",
           title: "Teachers",
           ignore: true,
         },
         {
           icon: "Activity",
-          pathname: "/portal/staff/non-teaching-staff",
+          pathname: "/portal/non-teaching-staff",
           title: "Non-Teaching Staff",
           ignore: true,
         }

@@ -48,8 +48,6 @@ const index = () => {
         admissionYear: "",
     });
 
-    const [successMsg, setSuccessMsg] = useState("");
-
     const navigate = useNavigate();
 
     const nextPage = () => {
@@ -73,7 +71,6 @@ const index = () => {
 
         AdmissionService.createAdmission(admissionForm).then((response) => {
             console.log("admission form response: ", response);
-            setSuccessMsg(response.data.message);
             basicNonStickyNotificationToggle();
             navigate("/portal/admissions")
         }).catch((error) => {
@@ -137,9 +134,9 @@ const index = () => {
                 className="flex flex-col sm:flex-row"
             >
                 <div className="font-medium">
-                    {successMsg}
+                    Admission Form Submitted Successfully
                 </div>
-                <a className="mt-1 font-medium text-primary dark:text-slate-400 sm:mt-0 sm:ml-40" href="/portal/courses">
+                <a className="mt-1 font-medium text-primary dark:text-slate-400 sm:mt-0 sm:ml-40" href="/portal/admissions">
                     Review Changes
                 </a>
             </Notification>

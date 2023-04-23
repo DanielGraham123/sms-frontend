@@ -5,11 +5,7 @@ import Button from "../../../base-components/Button";
 import { Dialog, Menu } from "../../../base-components/Headless";
 import Table from "../../../base-components/Table";
 import AdmissionService from '../../../services/AdmissionService';
-
-enum Level {
-    ELEMENTARY = "Elementary School",
-    HIGH_SCHOOL = "Secondary School",
-}
+import { Level } from '../../../types/enums';
 
 const index = () => {
     const [admissions, setAdmissions] = useState<any>([])

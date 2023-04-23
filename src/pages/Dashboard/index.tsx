@@ -1,8 +1,45 @@
 import clsx from "clsx";
 import Lucide from "../../base-components/Lucide";
 import Tippy from "../../base-components/Tippy";
+import { useEffect, useState } from "react";
+import CourseService from "../../services/CourseService";
+import TeacherService from "../../services/TeacherService";
+import AdmissionService from "../../services/AdmissionService";
+import { useNavigate } from "react-router-dom";
 
-function Main() {
+const Main = () => {
+  const [coursesCount, setCoursesCount] = useState(0);
+  const [teachersCount, setTeachersCount] = useState(0);
+  const [admissionsCount, setAdmissionsCount] = useState(0);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "Admin Dashboard";
+
+    CourseService.getAllCourses().then((res) => {
+      console.log("courses reponse: ", res);
+      setCoursesCount(res.length);
+    }).catch((error) => {
+      console.log("course fetching error: ", error);
+    });
+
+
+    TeacherService.getTeachers().then((res) => {
+      console.log("teachers reponse: ", res.data);
+      setTeachersCount(res.data.length);
+    }).catch((error) => {
+      console.log("teacher fetching error: ", error);
+    })
+
+    AdmissionService.getAdmissions().then((res) => {
+      console.log("admissions reponse: ", res.data);
+      setAdmissionsCount(res.data.length);
+    }).catch((error) => {
+      console.log("admission fetching error: ", error);
+    })
+
+  }, []);
 
   return (
     <div className="grid grid-cols-12 gap-6">
@@ -19,7 +56,7 @@ function Main() {
               </a>
             </div>
             <div className="grid grid-cols-12 gap-6 mt-5">
-              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y" onClick={() => navigate("/portal/students")}>
                 <div
                   className={clsx([
                     "relative zoom-in",
@@ -44,7 +81,7 @@ function Main() {
                       </div>
                     </div>
                     <div className="mt-6 text-3xl font-medium leading-8">
-                      4.710
+                      0
                     </div>
                     <div className="mt-1 text-base text-slate-500">
                       Students
@@ -52,7 +89,7 @@ function Main() {
                   </div>
                 </div>
               </div>
-              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y" onClick={() => navigate("/portal/admissions")}>
                 <div
                   className={clsx([
                     "relative zoom-in",
@@ -80,7 +117,7 @@ function Main() {
                       </div>
                     </div>
                     <div className="mt-6 text-3xl font-medium leading-8">
-                      250
+                      {admissionsCount}
                     </div>
                     <div className="mt-1 text-base text-slate-500">
                       Pending Admissions
@@ -88,7 +125,7 @@ function Main() {
                   </div>
                 </div>
               </div>
-              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y" onClick={() => navigate("/portal/teachers")}>
                 <div
                   className={clsx([
                     "relative zoom-in",
@@ -113,7 +150,7 @@ function Main() {
                       </div>
                     </div>
                     <div className="mt-6 text-3xl font-medium leading-8">
-                      249
+                      {teachersCount}
                     </div>
                     <div className="mt-1 text-base text-slate-500">
                       Teachers
@@ -121,7 +158,7 @@ function Main() {
                   </div>
                 </div>
               </div>
-              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+              <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y" onClick={() => navigate("/portal/courses")}>
                 <div
                   className={clsx([
                     "relative zoom-in",
@@ -131,7 +168,7 @@ function Main() {
                   <div className="p-5 box">
                     <div className="flex">
                       <Lucide
-                        icon="User"
+                        icon="BookOpen"
                         className="w-[28px] h-[28px] text-success"
                       />
                       <div className="ml-auto">
@@ -146,10 +183,10 @@ function Main() {
                       </div>
                     </div>
                     <div className="mt-6 text-3xl font-medium leading-8">
-                      152
+                      {coursesCount}
                     </div>
                     <div className="mt-1 text-base text-slate-500">
-                      Staff
+                      Courses
                     </div>
                   </div>
                 </div>

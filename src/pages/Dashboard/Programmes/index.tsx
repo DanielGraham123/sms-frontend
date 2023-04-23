@@ -5,17 +5,9 @@ import Lucide from "../../../base-components/Lucide";
 import ProgrammeService from "../../../services/ProgrammeService";
 import { useEffect, useState } from "react";
 import { FormCheck, FormInput, FormSelect } from "../../../base-components/Form";
+import { Programme } from "../../../types/entities";
+import { Level } from "../../../types/enums";
 
-enum Level {
-    ELEMENTARY = "Elementary School",
-    HIGH_SCHOOL = "Secondary School",
-}
-
-type Programme = {
-    id: number;
-    name: string;
-    level: string;
-}
 
 const index = () => {
     const [programmes, setProgrammes] = useState<Programme[]>([]);
