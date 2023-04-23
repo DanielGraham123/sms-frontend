@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Button from '../../../../base-components/Button'
 import clsx from 'clsx'
 import Step1 from './Step1'
@@ -6,9 +6,19 @@ import Step2 from './Step2'
 import Step3 from './Step3'
 import Step4 from './Step4'
 import Step5 from './Step5'
+import { AdmissionForm, Parent } from '../../../../types/entities'
+import AdmissionService from '../../../../services/AdmissionService'
+import { useNavigate } from 'react-router-dom'
+import Notification, { NotificationElement } from '../../../../base-components/Notification'
 
 
 const index = () => {
+    // Basic non sticky notification
+    const basicNonStickyNotification = useRef<NotificationElement>();
+    const basicNonStickyNotificationToggle = () => {
+        // Show notification
+        basicNonStickyNotification.current?.showToast();
+    };
 
     const [wizardStep, setWizardStep] = useState(1);
     const [parentForm, setParentForm] = useState({
@@ -23,19 +33,24 @@ const index = () => {
     const [studentForm, setStudentForm] = useState({
         firstName: "",
         lastName: "",
-        email: "xxxxxx@mail.xxx",
+        email: "",
         address: "",
         gender: "",
         dateOfBirth: "",
         enrollDate: "",
-    });
-    const [admissionForm, setAdmissionForm] = useState({
-        parent: {},
-        student: {},
+        level: "",
         programme_id: 0,
         grade_id: 0,
-        level: "",
     });
+    const [admissionForm, setAdmissionForm] = useState<AdmissionForm>({
+        student: studentForm,
+        parent: parentForm,
+        admissionYear: "",
+    });
+
+    const [successMsg, setSuccessMsg] = useState("");
+
+    const navigate = useNavigate();
 
     const nextPage = () => {
         setWizardStep(wizardStep + 1);
@@ -53,8 +68,29 @@ const index = () => {
         // { "step5": "Pay Admission Fee" }
     ]
 
+    const submitAdmissionForm = () => {
+        console.log("admission form to submit: ", admissionForm);
+
+        AdmissionService.createAdmission(admissionForm).then((response) => {
+            console.log("admission form response: ", response);
+            setSuccessMsg(response.data.message);
+            basicNonStickyNotificationToggle();
+            navigate("/portal/admissions")
+        }).catch((error) => {
+            console.log("admission form error: ", error);
+        })
+    }
+
     useEffect(() => {
         console.log("admission form: ", admissionForm);
+
+        if (admissionForm.student.programme_id == 0 || admissionForm.student.grade_id == 0 || admissionForm.student.level == "" || admissionForm.admissionYear == "") {
+            console.log("admission form is empty");
+            return;
+        } else {
+            submitAdmissionForm();
+        }
+
     }, [admissionForm])
 
     return (
@@ -84,12 +120,30 @@ const index = () => {
 
                     {wizardStep === 1 && <Step1 nextPage={nextPage} prevPage={prevPage} parent={parentForm} setParent={setParentForm} />}
                     {wizardStep === 2 && <Step2 nextPage={nextPage} prevPage={prevPage} student={studentForm} setStudent={setStudentForm} />}
-                    {wizardStep === 3 && <Step3 nextPage={nextPage} prevPage={prevPage} />}
+                    {wizardStep === 3 && <Step3 nextPage={nextPage} prevPage={prevPage} form={admissionForm} setAdmissionForm={setAdmissionForm} parentForm={parentForm} studentForm={studentForm} />}
                     {/* {wizardStep === 4 && <Step4 nextPage={nextPage} prevPage={prevPage} />}
                         {wizardStep === 5 && <Step5 nextPage={nextPage} prevPage={prevPage} />} */}
                 </div>
             </div>
             {/* END: Wizard Layout */}
+
+            {/* BEGIN: Basic Non Sticky Notification Content */}
+            <Notification getRef={(el) => {
+                basicNonStickyNotification.current = el;
+            }}
+                options={{
+                    duration: 3000,
+                }}
+                className="flex flex-col sm:flex-row"
+            >
+                <div className="font-medium">
+                    {successMsg}
+                </div>
+                <a className="mt-1 font-medium text-primary dark:text-slate-400 sm:mt-0 sm:ml-40" href="/portal/courses">
+                    Review Changes
+                </a>
+            </Notification>
+            {/* END: Basic Non Sticky Notification Content */}
         </div>
     )
 }

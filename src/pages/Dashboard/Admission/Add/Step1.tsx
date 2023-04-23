@@ -2,16 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { FormLabel, FormInput, FormSelect } from '../../../../base-components/Form'
 import Button from '../../../../base-components/Button'
 import { Gender, ParentType } from "../../../../types/enums";
-
-type Parent = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    address: string;
-    gender: string;
-    parentType: string;
-}
+import { Parent } from '../../../../types/entities';
 
 type PageProps = {
     nextPage: () => void,
@@ -46,8 +37,7 @@ const Step1 = ({ nextPage, prevPage, setParent, parent }: PageProps) => {
     }
 
     useEffect(() => {
-        setParentProfile({ ...parentProfile, gender: Gender.Male });
-        setParentProfile({ ...parentProfile, parentType: ParentType.Father });
+        setParentProfile({ ...parentProfile, gender: Gender.Male, parentType: ParentType.Father });
         console.log("parent: ", parent);
         console.log("parent profile: ", parentProfile);
     }, [])
@@ -121,7 +111,7 @@ const Step1 = ({ nextPage, prevPage, setParent, parent }: PageProps) => {
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-6">Role</FormLabel>
-                    <FormSelect id="input-wizard-6" name='parentType' value={parentProfile?.parentType}>
+                    <FormSelect id="input-wizard-6" name='parentType' value={parentProfile?.parentType} onChange={e => handleSelectRole(e)}>
                         <option value={ParentType.Father}>Father</option>
                         <option value={ParentType.Mother}>Mother</option>
                         <option value={ParentType.Guardian}>Guardian</option>

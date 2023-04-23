@@ -14,6 +14,7 @@ enum Level {
 const index = () => {
     const [admissions, setAdmissions] = useState<any>([])
     const [error, setError] = useState("")
+    const [admitted, setAdmitted] = useState(false)
 
     const navigate = useNavigate()
 
@@ -67,6 +68,7 @@ const index = () => {
                                 <Table.Th className="whitespace-nowrap">
                                     Level
                                 </Table.Th>
+                                <Table.Th className='whitespace-nowrap'>Action</Table.Th>
                             </Table.Tr>
                         </Table.Thead>
                         <Table.Tbody>
@@ -98,6 +100,15 @@ const index = () => {
                                         <Table.Td className="border-b">
                                             <div className="font-normal whitespace-nowrap">
                                                 <span>{admission?.level === "ELEMENTARY" && Level.ELEMENTARY || admission?.level === "HIGH_SCHOOL" && Level.HIGH_SCHOOL}</span>
+                                            </div>
+                                        </Table.Td>
+                                        <Table.Td>
+                                            <div className="font-normal whitespace-nowrap">
+                                                <button className='bg-primary text-white font-normal px-3 py-1 rounded hover:bg-primary/80 shadow' onClick={() => setAdmitted(true)}>Admit</button>
+
+                                                {/* {
+                                                    admitted && <button className='bg-primary/20 text-white font-normal px-3 py-1 rounded shadow'>Admitted</button>
+                                                } */}
                                             </div>
                                         </Table.Td>
                                     </Table.Tr>

@@ -3,15 +3,8 @@ import { FormLabel, FormInput, FormSelect } from '../../../../base-components/Fo
 import Button from '../../../../base-components/Button'
 import Litepicker from "../../../../base-components/Litepicker";
 import { Gender } from '../../../../types/enums';
-
-type Student = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    address: string;
-    gender: string;
-    enrollDate: string;
-}
+import { formatDate } from '../../../../utils/dateformat';
+import { Student } from '../../../../types/entities';
 
 type PageProps = {
     nextPage: () => void,
@@ -22,8 +15,10 @@ type PageProps = {
 
 const Step2 = ({ nextPage, prevPage, student, setStudent }: PageProps) => {
     const [error, setError] = useState("");
-    const [date, setDate] = useState("");
-    const [studentProfile, setStudentProfile] = useState<Student>(student);
+    const [dob, setDOB] = useState("");
+    const [enrollDate, setEnrollDate] = useState("");
+    const [studentProfile, setStudentProfile] = useState<Student>({ ...student, gender: Gender.Female });
+    const [gender, setGender] = useState("")
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setStudentProfile({ ...studentProfile, [e.target.name]: e.target.value });
@@ -35,19 +30,36 @@ const Step2 = ({ nextPage, prevPage, student, setStudent }: PageProps) => {
     }
 
     const saveStudentProfile = () => {
+        if (studentProfile.address === "" || studentProfile.dateOfBirth === "" || studentProfile.enrollDate === "" || studentProfile.firstName === "" || studentProfile.lastName === "") {
+            setError("Please fill all the fields!");
+            return;
+        }
+
         setStudent(studentProfile);
-        // nextPage();
+        nextPage();
         console.log("student profile: ", studentProfile);
     }
 
     useEffect(() => {
-        setStudentProfile({ ...studentProfile, gender: Gender.Male });
-        console.log("student: ", student);
-    }, [])
+        console.log("date of birth: ", formatDate(new Date(dob)));
+        setStudentProfile({ ...studentProfile, dateOfBirth: formatDate(new Date(dob)) });
+    }, [dob])
+
+    useEffect(() => {
+        console.log("enroll date: ", formatDate(new Date(enrollDate)));
+        setStudentProfile({ ...studentProfile, enrollDate: formatDate(new Date(enrollDate)) });
+    }, [enrollDate])
 
     return (
         <>
             <div className="text-base font-medium">Student Profile</div>
+            {error && (
+                <div className="intro-x mt-5">
+                    <div className="bg-danger/20 text-red-800 font-normal rounded-md p-2">
+                        {error}
+                    </div>
+                </div>
+            )}
             <div className="grid grid-cols-12 gap-4 mt-5 gap-y-5">
                 <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-1">First Name</FormLabel>
@@ -72,15 +84,14 @@ const Step2 = ({ nextPage, prevPage, student, setStudent }: PageProps) => {
                     />
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
-                    <FormLabel htmlFor="input-wizard-2">E-mail</FormLabel>
+                    <FormLabel htmlFor="input-wizard-2">E-mail <span className='text-gray-400'>(optional)</span></FormLabel>
                     <FormInput
                         id="input-wizard-email"
                         type="email"
-                        placeholder="email"
+                        placeholder="xxxxx@mail.xxx"
                         name="email"
                         value={studentProfile?.email}
                         onChange={(e) => handleChange(e)}
-                        disabled
                     />
                 </div>
                 <div className="col-span-12 intro-y sm:col-span-6">
@@ -93,8 +104,26 @@ const Step2 = ({ nextPage, prevPage, student, setStudent }: PageProps) => {
                 <div className="col-span-12 intro-y sm:col-span-6">
                     <FormLabel htmlFor="input-wizard-3">Date of Birth</FormLabel>
                     <Litepicker
-                        value={date}
-                        onChange={setDate}
+                        value={dob}
+                        onChange={setDOB}
+                        options={{
+                            autoApply: false,
+                            showWeekNumbers: true,
+                            dropdowns: {
+                                minYear: 1990,
+                                maxYear: 2021,
+                                months: true,
+                                years: true,
+                            },
+                        }}
+                        className=""
+                    />
+                </div>
+                <div className="col-span-12 intro-y sm:col-span-6">
+                    <FormLabel htmlFor="input-wizard-3">Enroll Date</FormLabel>
+                    <Litepicker
+                        value={enrollDate}
+                        onChange={setEnrollDate}
                         options={{
                             autoApply: false,
                             showWeekNumbers: true,

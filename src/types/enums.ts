@@ -1,10 +1,10 @@
 export enum ParentType {
-    Father = "Father",
-    Mother = "Mother",
-    Guardian = "Guardian",
+    Father = "FATHER",
+    Mother = "MOTHER",
+    Guardian = "GUARDIAN",
 }
 
 export enum Gender {
-    Male = "Male",
-    Female = "Female"
+    Male = "MALE",
+    Female = "FEMALE"
 }
