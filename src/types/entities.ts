@@ -45,3 +45,8 @@ export type Teacher = {
     },
     gender: string;
 }
+
+export type ApprovalObject = {
+    admission_id: number;
+    admissionStatus: boolean;
+}

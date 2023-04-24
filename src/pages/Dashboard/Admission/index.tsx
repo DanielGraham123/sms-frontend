@@ -30,6 +30,17 @@ const index = () => {
         })
     }
 
+    const approveAdmission = (id: number, status: boolean) => {
+        let approvalObject = { admission_id: id, admissionStatus: true }
+
+        AdmissionService.approveAdmission(approvalObject).then((response) => {
+            console.log("response: ", response)
+            fetchAdmissions()
+        }).catch(error => {
+            console.log("approve admission error: ", error)
+        })
+    }
+
     useEffect(() => {
         fetchAdmissions()
     }, [])
@@ -100,11 +111,10 @@ const index = () => {
                                         </Table.Td>
                                         <Table.Td>
                                             <div className="font-normal whitespace-nowrap">
-                                                <button className='bg-primary text-white font-normal px-3 py-1 rounded hover:bg-primary/80 shadow' onClick={() => setAdmitted(true)}>Admit</button>
-
-                                                {/* {
-                                                    admitted && <button className='bg-primary/20 text-white font-normal px-3 py-1 rounded shadow'>Admitted</button>
-                                                } */}
+                                                {
+                                                    admission?.admissionStatus ? <button className='bg-primary/20 text-white font-normal py-1 rounded shadow px-3'>Admitted</button> :
+                                                        <button className='bg-primary text-white font-normal px-4 py-1 rounded hover:bg-primary/80 shadow' onClick={() => approveAdmission(admission.id, admission.admissionStatus)}>Admit</button>
+                                                }
                                             </div>
                                         </Table.Td>
                                     </Table.Tr>
