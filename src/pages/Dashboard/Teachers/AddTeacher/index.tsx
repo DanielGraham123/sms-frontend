@@ -151,6 +151,10 @@ const index = () => {
                             }
                         </FormSelect>
                     </div>
+                    <div className='col-span-2 intro-y sm:col-span-1'>
+                        <FormLabel htmlFor="password">Password</FormLabel>
+                        <FormInput id="password" name='password' type="text" value={teacher?.lastName} placeholder="" />
+                    </div>
                 </div>
 
                 <div className='mt-5 text-right'>

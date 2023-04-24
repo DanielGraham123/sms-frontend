@@ -2,6 +2,7 @@ import { useRoutes } from "react-router-dom";
 import SideMenu from "../layouts/SideMenu";
 import ParentLayout from "../layouts/ParentLayout";
 import StudentLayout from "../layouts/StudentLayout";
+import TeacherLayout from "../layouts/TeacherLayout";
 import HomeLayout from "../layouts/HomeLayout";
 import Dashboard from "../pages/Dashboard";
 import Students from "../pages/Dashboard/Students";
@@ -26,6 +27,9 @@ import StudentDashboard from "../pages/StudentDashboard"
 import AdminProfile from "../pages/Dashboard/Profile"
 import AddAdmission from "../pages/Dashboard/Admission/Add"
 import AddTeacher from "../pages/Dashboard/Teachers/AddTeacher"
+import TeacherProfile from "../pages/TeacherDashboard/Profile"
+import ParentProfile from "../pages/ParentDashboard/Profile"
+import StudentProfile from "../pages/StudentDashboard/Profile"
 
 function Router() {
   const routes = [
@@ -99,12 +103,16 @@ function Router() {
     // Teacher Dashboard routes
     {
       path: "/teacher/",
-      element: <SideMenu />,
+      element: <TeacherLayout />,
       children: [
         {
           path: "dashboard",
           element: <TeacherDashboard />,
         },
+        {
+          path: "profile",
+          element: <TeacherProfile />,
+        }
       ]
     },
 
@@ -117,6 +125,10 @@ function Router() {
           path: "dashboard",
           element: <ParentDashboard />,
         },
+        {
+          path: "profile",
+          element: <ParentProfile />,
+        }
       ]
     },
 
@@ -129,6 +141,10 @@ function Router() {
           path: "dashboard",
           element: <StudentDashboard />,
         },
+        {
+          path: "profile",
+          element: <StudentProfile />,
+        }
       ]
     },
 

@@ -39,6 +39,21 @@ function Main(props: { layout?: "side-menu" | "simple-menu" | "top-menu" }) {
     }, 3000);
   }
 
+  const currentRole = () => {
+    switch (user?.role[0]) {
+      case "ADMIN":
+        return "portal";
+      case "TEACHER":
+        return "teacher";
+      case "PARENT":
+        return "parent";
+      case "STUDENT":
+        return "student";
+      default:
+        return ""
+    }
+  }
+
   useEffect(() => {
 
     if (location.pathname) {
@@ -74,7 +89,7 @@ function Main(props: { layout?: "side-menu" | "simple-menu" | "top-menu" }) {
         <div className="flex items-center h-full">
           {/* BEGIN: Logo */}
           <Link
-            to="/"
+            to={`/${currentRole()}/dashboard`}
             className={clsx([
               "-intro-x hidden md:flex",
               props.layout == "side-menu" && "xl:w-[180px]",
@@ -108,7 +123,7 @@ function Main(props: { layout?: "side-menu" | "simple-menu" | "top-menu" }) {
               props.layout == "top-menu" && "md:pl-10",
             ])}
           >
-            <Breadcrumb.Link to="/portal/dashboard">Dashboard</Breadcrumb.Link>
+            <Breadcrumb.Link to={`/${currentRole()}/dashboard`}>Dashboard</Breadcrumb.Link>
 
             {(location.pathname?.split("/").length === 4) ? (
               <Breadcrumb.Link to={!isUndefined(path) ? path.split("/").slice(2, 3).join().replace(",", "/") : ""}>
@@ -301,7 +316,7 @@ function Main(props: { layout?: "side-menu" | "simple-menu" | "top-menu" }) {
                 </div>
               </Menu.Header>
               <Menu.Divider className="bg-white/[0.08]" />
-              <Menu.Item className="hover:bg-white/5" onClick={() => navigate("/portal/profile")}>
+              <Menu.Item className="hover:bg-white/5" onClick={() => navigate(`/${currentRole()}/profile`)}>
                 <Lucide icon="User" className="w-4 h-4 mr-2" /> Profile
               </Menu.Item>
               {/* <Menu.Item className="hover:bg-white/5">

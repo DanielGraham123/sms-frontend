@@ -6,6 +6,7 @@ import simpleMenuReducer from "./simpleMenuSlice";
 import topMenuReducer from "./topMenuSlice";
 import parentSideMenu from "./parentSideMenuSlice";
 import studentSideMenu from "./studentSideMenuSlice";
+import teacherSideMenu from "./teacherSideMenuSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     topMenu: topMenuReducer,
     parentSideMenu: parentSideMenu,
     studentSideMenu: studentSideMenu,
+    teacherSideMenu: teacherSideMenu,
   },
 });
 
