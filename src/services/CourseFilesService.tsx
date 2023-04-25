@@ -22,6 +22,14 @@ class CourseFilesService {
         return axios.get(`${FILES_API_URL}/exists?name=${name}`);
     }
 
+    static async deleteFile(id: number) {
+        return axios.delete(`${FILES_API_URL}/${id}`);
+    }
+
+    static async getFilesByCourseId(id: number) {
+        return axios.get(`${FILES_API_URL}/course/${id}`);
+    }
+
 }
 
 export default CourseFilesService;

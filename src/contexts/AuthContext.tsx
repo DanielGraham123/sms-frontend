@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     // logout a logged in user
     const logout = (user: User) => {
-        if (user?.role[0] === Role.ADMIN) {
+        if (user?.role[0] === Role.ADMIN || user?.role[0] === Role.TEACHER || user?.role[0] === Role.STAFF) {
             navigate("/staff/login", { replace: true });
             setUser(null);
         } else {

@@ -28,6 +28,11 @@ class CourseService {
         const response = await axios.delete(`${COURSE_API_URL}/delete/${id}`);
         return response.data;
     }
+
+    static async getCoursesByProgrammeId(id: number) {
+        const response = await axios.get(`${COURSE_API_URL}/programme/${id}`);
+        return response.data;
+    }
 }
 
 export default CourseService;

@@ -42,10 +42,7 @@ const index = () => {
                 console.log(res.user);
                 setLoading(false)
                 const loggedUser: User = {
-                    id: res.user.id,
-                    username: res.user.username,
-                    email: res.user.email,
-                    role: res.user.role,
+                    ...res.user,
                 }
                 login(loggedUser);
             }, 1500)

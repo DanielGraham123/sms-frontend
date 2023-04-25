@@ -17,23 +17,27 @@ import { useEffect, useState } from "react";
 import pdfIcon from "../../../assets/images/pdf-file.png";
 import wordIcon from "../../../assets/images/word-file.png";
 import { formatBytes } from "../../../utils/sizeformat";
+import { useAuth } from "../../../contexts/AuthContext";
 
 const index = () => {
-    const [courseFiles, setCourseFiles] = useState([]);
+    const [programmeFiles, setProgrammeFiles] = useState([]);
 
     const navigate = useNavigate()
+    const { user } = useAuth()
 
-    const fetchCourseFiles = () => {
-        CourseFilesService.getFiles().then((res) => {
-            console.log("All files: ", res)
-            setCourseFiles(res.data)
+    const fetchtProgrammeCourseFiles = () => {
+        CourseFilesService.getFilesByCourseId(user.programme.id).then((res) => {
+            console.log("All Student files: ", res)
+            setProgrammeFiles(res.data)
         }).catch((err) => {
             console.log("error fetching files: ", err)
         })
     }
 
     useEffect(() => {
-        fetchCourseFiles()
+        fetchtProgrammeCourseFiles()
+
+        console.log("current user: ", user)
     }, [])
 
     return (
@@ -156,7 +160,7 @@ const index = () => {
                         </Menu>
                     </div>
                     <div className="flex w-full sm:w-auto">
-                        <Button variant="primary" className="mr-2 shadow-md" onClick={() => navigate("/teacher/files/upload")}>
+                        <Button variant="primary" className="mr-2 shadow-md" onClick={() => navigate("/student/files/upload")}>
                             Upload New Files
                         </Button>
 
@@ -165,8 +169,8 @@ const index = () => {
                 {/* END: File Manager Filter */}
                 {/* BEGIN: Directory & Files */}
                 <div className="grid grid-cols-12 gap-3 mt-5 intro-y sm:gap-6">
-                    {courseFiles.length > 0 ?
-                        courseFiles.map((file: any, index) => (
+                    {programmeFiles.length > 0 ?
+                        programmeFiles.map((file: any, index) => (
                             <div
                                 key={file?.name + "#" + index}
                                 className="col-span-6 intro-y sm:col-span-4 md:col-span-3 2xl:col-span-2"
@@ -273,7 +277,7 @@ const index = () => {
                 </div>
                 {/* END: Directory & Files */}
                 {/* BEGIN: Pagination */}
-                {courseFiles.length > 0 &&
+                {programmeFiles.length > 0 &&
                     <div className="flex flex-wrap items-center mt-6 intro-y sm:flex-row sm:flex-nowrap">
                         <Pagination className="w-full sm:w-auto sm:mr-auto">
                             <Pagination.Link>
