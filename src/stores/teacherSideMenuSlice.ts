@@ -21,21 +21,27 @@ const initialState: SideMenuState = {
       pathname: "/teacher/dashboard",
       title: "Dashboard",
     },
-    // {
-    //   icon: "BookOpen",
-    //   pathname: "/parent/classes",
-    //   title: "Classes",
-    // },
-    // {
-    //   icon: "Book",
-    //   pathname: "/parent/programmes",
-    //   title: "Programmes",
-    // },
-    // {
-    //   icon: "Library",
-    //   pathname: "/parent/courses",
-    //   title: "Courses",
-    // },
+    {
+      icon: "Book",
+      pathname: "/teacher/course",
+      title: "Course",
+    },
+    {
+      icon: "Users",
+      pathname: "/teacher/students",
+      title: "Students",
+    },
+    {
+      icon: "FolderOpen",
+      pathname: "/teacher/files",
+      title: "Files",
+    },
+    {
+      icon: "Settings",
+      pathname: "/teacher/profile",
+      title: "Settings",
+    },
+
 
 
   ],

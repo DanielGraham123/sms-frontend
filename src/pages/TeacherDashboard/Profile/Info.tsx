@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import Button from "../../../base-components/Button";
 import { FormInline, FormInput, FormLabel } from "../../../base-components/Form";
 import Lucide from '../../../base-components/Lucide';
 
 const Info = ({ user, photo }: { user: any; photo: any; }): JSX.Element => {
+
+    useEffect(() => {
+        console.log("user teacher: ", user);
+    }, [])
 
     return (
         <div className="col-span-12 intro-y box 2xl:col-span-6">
@@ -22,7 +27,7 @@ const Info = ({ user, photo }: { user: any; photo: any; }): JSX.Element => {
                         <div className="w-24 text-lg font-medium truncate sm:w-40 sm:whitespace-normal capitalize">
                             {user?.username}
                         </div>
-                        <div className="text-slate-500">{user?.role[0]}</div>
+                        <div className="text-slate-500">{user?.course?.name.toUpperCase() + " " + user?.role[0]}</div>
                         <div className="text-blue-800 dark:text-indigo-300">{user?.email}</div>
                     </div>
                 </div>
@@ -43,9 +48,9 @@ const Info = ({ user, photo }: { user: any; photo: any; }): JSX.Element => {
                 </FormInline>
                 <FormInline className="mt-5">
                     <FormLabel htmlFor="horizontal-form-2" className="sm:w-20" >
-                        Role
+                        Course
                     </FormLabel>
-                    <FormInput id="horizontal-form-2" type="text" disabled value="ADMINISTRATOR" />
+                    <FormInput id="horizontal-form-2" type="text" disabled value={user?.course?.name} />
                 </FormInline>
 
                 <div className="mt-5 sm:ml-20 sm:pl-5 float-right mb-5">

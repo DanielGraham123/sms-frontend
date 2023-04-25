@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 export const { createReactComponent, ...icons } = lucideIcons;
 
-type Icon = keyof typeof icons;
+export type Icon = keyof typeof icons;
 
 interface LucideProps extends React.ComponentPropsWithoutRef<"svg"> {
   icon: Icon;

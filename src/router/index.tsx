@@ -30,6 +30,10 @@ import AddTeacher from "../pages/Dashboard/Teachers/AddTeacher"
 import TeacherProfile from "../pages/TeacherDashboard/Profile"
 import ParentProfile from "../pages/ParentDashboard/Profile"
 import StudentProfile from "../pages/StudentDashboard/Profile"
+import TeacherCourse from "../pages/TeacherDashboard/Course"
+import TeacherStudents from "../pages/TeacherDashboard/Students"
+import TeacherFiles from "../pages/TeacherDashboard/FileSystem"
+import TeacherFileUpload from "../pages/TeacherDashboard/FileSystem/UploadFile"
 
 function Router() {
   const routes = [
@@ -112,7 +116,29 @@ function Router() {
         {
           path: "profile",
           element: <TeacherProfile />,
-        }
+        },
+        {
+          path: "course",
+          element: <TeacherCourse />,
+        },
+        {
+          path: "students",
+          element: <TeacherStudents />,
+        },
+        {
+          path: "files",
+          children: [
+            {
+              path: "",
+              element: <TeacherFiles />,
+            },
+            {
+              path: "upload",
+              element: <TeacherFileUpload />,
+            }
+          ]
+        },
+
       ]
     },
 

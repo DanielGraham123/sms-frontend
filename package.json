@@ -27,6 +27,7 @@
     "chart.js": "^3.9.1",
     "dayjs": "^1.11.5",
     "dropzone": "^6.0.0-beta.2",
+    "firebase": "^9.20.0",
     "flat": "^5.0.2",
     "highlight.js": "^11.6.0",
     "js-beautify": "^1.14.6",
@@ -46,6 +47,7 @@
     "tippy.js": "^6.3.7",
     "toastify-js": "^1.12.0",
     "tom-select": "^2.2.0",
+    "uuid": "^9.0.0",
     "xlsx": "^0.18.5",
     "yup": "^0.32.11",
     "zoom-vanilla.js": "^2.0.6"
@@ -63,6 +65,7 @@
     "@types/react-transition-group": "^4.4.5",
     "@types/tabulator-tables": "^5.32.1",
     "@types/toastify-js": "^1.11.1",
+    "@types/uuid": "^9.0.1",
     "@vitejs/plugin-react": "^2.0.1",
     "autoprefixer": "^10.4.8",
     "clsx": "^1.2.1",

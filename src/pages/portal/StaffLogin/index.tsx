@@ -48,10 +48,7 @@ const index = () => {
         console.log("staff login", res)
         setLoading(false)
         const loggedInUser: User = {
-          id: res.user.id,
-          username: res.user.username,
-          email: res.user.email,
-          role: res.user.role
+          ...res.user
         }
         login(loggedInUser);
       }, 1500)

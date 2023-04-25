@@ -50,3 +50,12 @@ export type ApprovalObject = {
     admission_id: number;
     admissionStatus: boolean;
 }
+
+export type CourseFile = {
+    name: string;
+    path: string;
+    fileType: string;
+    size: number;
+    course_id: number;
+    user_id: number;
+}
