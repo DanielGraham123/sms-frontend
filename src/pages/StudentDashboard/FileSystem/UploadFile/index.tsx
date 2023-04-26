@@ -215,9 +215,8 @@ const index = () => {
                                 Drop files here or click to upload.
                             </div>
                             <div className="text-gray-600">
-                                This is just a demo dropzone. Selected files are
-                                <span className="font-medium">not</span> actually
-                                uploaded.
+                                You are
+                                <span className="font-medium">only allowed</span> to upload pdf, doc, docx, jpg, jpeg, or png file types.
                             </div>
                         </Dropzone>
                     </div>
