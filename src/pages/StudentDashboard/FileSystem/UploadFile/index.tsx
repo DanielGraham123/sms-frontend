@@ -216,7 +216,7 @@ const index = () => {
                             </div>
                             <div className="text-gray-600">
                                 You are
-                                <span className="font-medium">only allowed</span> to upload pdf, doc, docx, jpg, jpeg, or png file types.
+                                <span className="font-medium"> only allowed</span> to upload pdf, doc, docx, jpg, jpeg, or png file types.
                             </div>
                         </Dropzone>
                     </div>

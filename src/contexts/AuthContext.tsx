@@ -3,11 +3,13 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import { User } from "../hooks/useUser";
 import { createContext, useContext, useMemo } from "react";
 import { Role } from "../hooks/useRole";
+import { getCookie } from "../utils/cookies";
 
 const AuthContext = createContext({
     user: null as any,
     login: (user: User) => { },
-    logout: (user: User) => { }
+    logout: (user: User) => { },
+    getS: () => { },
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -44,8 +46,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }
 
+    const getS = (): string => {
+        let s = getCookie("secret").split("r/d/m")[0];
+        console.log("sec: ", s);
+        return s;
+    }
+
     const value = useMemo(() => ({
-        user, login, logout
+        user, login, logout, getS
     }), [user])
 
     return (

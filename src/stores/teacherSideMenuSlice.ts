@@ -32,6 +32,11 @@ const initialState: SideMenuState = {
       title: "Students",
     },
     {
+      icon: "MessageSquare",
+      pathname: "/teacher/chats",
+      title: "Chats"
+    },
+    {
       icon: "FolderOpen",
       pathname: "/teacher/files",
       title: "Files",

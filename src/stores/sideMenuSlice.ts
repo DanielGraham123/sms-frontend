@@ -47,6 +47,11 @@ const initialState: SideMenuState = {
       title: "Admissions"
     },
     {
+      icon: "MessageSquare",
+      pathname: "/portal/chats",
+      title: "Chats"
+    },
+    {
       icon: "Users",
       title: "Staff",
       subMenu: [

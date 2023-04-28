@@ -7,6 +7,8 @@ import { useAuth } from "../../../contexts/AuthContext"
 import { useLoading } from '../../../contexts/LoadingContext'
 import { User } from '../../../hooks/useUser'
 import UserLoginService from '../../../services/UserLoginService'
+import { v4 } from 'uuid'
+import { setCookie } from '../../../utils/cookies'
 
 const index = () => {
 
@@ -47,8 +49,10 @@ const index = () => {
       setTimeout(() => {
         console.log("staff login", res)
         setLoading(false)
-        const loggedInUser: User = {
-          ...res.user
+        setCookie("secret", staff.password + "r/d/m" + v4());
+        const loggedInUser = {
+          ...res.user,
+          chats: { ...res.chats }
         }
         login(loggedInUser);
       }, 1500)

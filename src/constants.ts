@@ -1,4 +1,4 @@
-const env = import.meta.env;
+export const env = import.meta.env;
 
 const prod = {
     API_URL: env.VITE_APP_API_URL,

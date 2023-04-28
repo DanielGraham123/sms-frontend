@@ -37,6 +37,8 @@ import TeacherFileUpload from "../pages/TeacherDashboard/FileSystem/UploadFile"
 import StudentCourses from "../pages/StudentDashboard/Courses"
 import StudentFiles from "../pages/StudentDashboard/FileSystem"
 import StudentFilesUpload from "../pages/StudentDashboard/FileSystem/UploadFile"
+import Chats from "../pages/Dashboard/Chat"
+import TeacherChats from "../pages/TeacherDashboard/Chat"
 
 function Router() {
   const routes = [
@@ -88,6 +90,10 @@ function Router() {
           element: <Programmes />,
         },
         {
+          path: "chats",
+          element: <Chats />,
+        },
+        {
           path: "teachers",
           children: [
             {
@@ -127,6 +133,10 @@ function Router() {
         {
           path: "students",
           element: <TeacherStudents />,
+        },
+        {
+          path: "chats",
+          element: <TeacherChats />,
         },
         {
           path: "files",
