@@ -7,7 +7,7 @@ export default defineConfig({
   build: {
     commonjsOptions: {
       include: ["tailwind.config.js", "node_modules/**"],
-      transformMixedEsModules: true,
+      transformMixedEsModules: true, //https://blog.csdn.net/weixin_41645458/article/details/126952304
     },
   },
   optimizeDeps: {
