@@ -1,6 +1,6 @@
 import React from 'react'
-import { FormLabel, FormInput, FormSelect } from '../../../base-components/Form'
-import Button from '../../../base-components/Button'
+import { FormLabel, FormInput, FormSelect } from '../../../../base-components/Form'
+import Button from '../../../../base-components/Button'
 
 type PageProps = {
     nextPage: () => void,
